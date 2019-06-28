@@ -27,9 +27,10 @@ passport.use(
         (accessToken, refreshToken, profile, done) => {
             User.findOne({googleId:profile.id})
                 .then((existingUser) => {
+                     console.log('inside then ' + existingUser)
                     if (existingUser) {
                         // found a user with given profile ID
-                        done(null, existingUser);
+                        done(err, existingUser);
                     } else {
                         // user with given record not found
                         // Make a model instance and persists it to mongodb
@@ -39,7 +40,7 @@ passport.use(
                                 console.log(err);
                             }
                         }) 
-                        .then((user) => done(null, user)); // 'user' is saved user in mongo, pass it to passport
+                        .then((user) => done(err, user)); // 'user' is saved user in mongo, pass it to passport
                     }
                 });
 
