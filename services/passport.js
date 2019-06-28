@@ -29,7 +29,7 @@ passport.use(
                 .then((existingUser) => {
                     if (existingUser) {
                         // found a user with given profile ID
-                        done(err, existingUser);
+                        done(null, existingUser);
                     } else {
                         // user with given record not found
                         // Make a model instance and persists it to mongodb
