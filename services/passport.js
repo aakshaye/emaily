@@ -24,27 +24,16 @@ passport.use(
             callbackURL: '/auth/google/callback',
             proxy: true
         },
-        (accessToken, refreshToken, profile, done) => {
-            User.findOne({googleId:profile.id})
-                .then((existingUser) => {
-                    if (existingUser) {
-                        // found a user with given profile ID
-                        done(null, existingUser);
-                    } else {
-                        // user with given record not found
-                        // Make a model instance and persists it to mongodb
-                        var userIns = new User({ googleId: profile.id }); 
-                        userIns.save( (err) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                        }) 
-                        .then((user) => done(err, user)); // 'user' is saved user in mongo, pass it to passport
-                    }
-                });
-
-            
-
+        async (accessToken, refreshToken, profile, done) => {
+            const existingUser = await User.findOne({googleId:profile.id})
+            if (existingUser) {
+                // found a user with given profile ID
+                return done(null, existingUser);
+            } 
+            // user with given record not found
+            // Make a model instance and persists it to mongodb
+            const userIns = await new User({ googleId: profile.id }).save();
+            done(err, userIns); // 'user' is saved user in mongo, pass it to passport
         }
     )
 );
