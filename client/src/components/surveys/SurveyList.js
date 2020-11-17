@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {CanvasJSChart} from 'canvasjs-react-charts';
 import { fetchSurveys } from '../../actions';
 
 class SurveyList extends Component {
@@ -9,10 +10,42 @@ class SurveyList extends Component {
 
     renderSurveys() {
         return this.props.surveys.reverse().map(survey => {
+            const options = {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Survey Responses"
+                },
+                axisX: {
+                    title: "Response",
+                    reversed: true,
+                },
+                axisY: {
+                    title: "Count",
+                    includeZero: true,
+                },
+                data: [{
+                    type: "stackedBar",
+                    name: "Yes",                
+                    dataPoints: []
+                },
+                ]
+            }
+
+            const responseYes = {
+                y : survey.yes,
+                label : "Yes",
+            }
+            const responseNo = {
+                y : survey.no,
+                label : "No",
+            }
+            options.data[0].dataPoints.push(responseYes);
+            options.data[0].dataPoints.push(responseNo);
             return (
-                <div className="card blue-grey darken-1" key={survey._id}>
+                <div className="card blue" key={survey._id}>
                     <div className="card-content white-text">
-                        <span class="card-title">{survey.title}</span>
+                        <span className="card-title">{survey.title}</span>
                         <p>
                             {survey.body}
                         </p>
@@ -21,19 +54,24 @@ class SurveyList extends Component {
                         </p>
                     </div>
                     <div className="card-action">
-                        <a>Yes: {survey.yes}</a>
-                        <a>No: {survey.no}</a>
+                        {/*<a>Yes: {survey.yes}</a>
+                        <a>No: {survey.no}</a>*/}
                         <a className="delete-btn">
                             Delete Survey
                         </a>
+                        <a className="right white-text">
+                            Last Responded: {new Date(survey.lastResponded).toLocaleDateString()}
+                        </a>
                     </div>
+                    <CanvasJSChart options = {options}
+                        onRef={ref => this.chart = ref}
+                    />
                 </div>
             )
         });
     }
 
-    render() {
-        
+    render() {        
         //super();
         return (
             <div>
