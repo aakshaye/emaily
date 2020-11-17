@@ -63,9 +63,13 @@ class SurveyList extends Component {
                             Last Responded: {new Date(survey.lastResponded).toLocaleDateString()}
                         </a>
                     </div>
-                    <CanvasJSChart options = {options}
+                    {
+                        (survey.yes == 0 || survey.no == 0) &&
+                        <CanvasJSChart options = {options}
                         onRef={ref => this.chart = ref}
-                    />
+                        />
+                    }
+                    
                 </div>
             )
         });
