@@ -64,7 +64,7 @@ class SurveyList extends Component {
                         </a>
                     </div>
                     {
-                        (survey.yes == 0 || survey.no == 0) &&
+                        (survey.yes > 0 || survey.no > 0) &&
                         <CanvasJSChart options = {options}
                         onRef={ref => this.chart = ref}
                         />
