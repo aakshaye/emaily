@@ -56,11 +56,11 @@ class SurveyList extends Component {
                     <div className="card-action">
                         {/*<a>Yes: {survey.yes}</a>
                         <a>No: {survey.no}</a>*/}
-                        <a className="delete-btn">
+                        {/*<a className="delete-btn">
                             Delete Survey
-                        </a>
+                        </a>*/}
                         <a className="right white-text">
-                            Last Responded: {new Date(survey.lastResponded).toLocaleDateString()}
+                            Last Responded: {survey.lastResponded && new Date(survey.lastResponded).toLocaleDateString()}
                         </a>
                     </div>
                     {
