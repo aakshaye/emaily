@@ -1,6 +1,3 @@
 node_modules
-dev.jssendgrid.env
-sendgrid.env
-sendgrid.env
-sendgrid.env
+dev.js
 sendgrid.env
