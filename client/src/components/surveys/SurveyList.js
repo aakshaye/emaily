@@ -53,14 +53,14 @@ class SurveyList extends Component {
                             Sent On: {new Date(survey.dateSent).toLocaleDateString()}
                         </p>
                     </div>
-                    <div className="card-action">
+                    <div className="card-action surveyResponse">
                         {/*<a>Yes: {survey.yes}</a>
                         <a>No: {survey.no}</a>*/}
                         {/*<a className="delete-btn">
                             Delete Survey
                         </a>*/}
                         <a className="right white-text">
-                            Last Responded: {survey.lastResponded && new Date(survey.lastResponded).toLocaleDateString()}
+                            {survey.lastResponded && `Last Responded: ${new Date(survey.lastResponded).toLocaleDateString()}`}
                         </a>
                     </div>
                     {

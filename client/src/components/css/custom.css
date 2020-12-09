@@ -5,3 +5,7 @@ nav {
 nav .brand-logo {
     padding-left: 22px;
 }
+
+.surveyResponse {
+    height: 45px;
+}
